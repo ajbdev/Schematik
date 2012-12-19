@@ -1,0 +1,17 @@
+{
+    "name": "ajbdev/Schematik",
+    "authors": [
+        {
+            "name": "Andy Baird",
+            "email": "andybaird@gmail.com"
+        }
+    ],
+    "autoload": {
+        "classmap": [
+            "src/"
+        ]
+    },
+    "require": {
+
+    }
+}
