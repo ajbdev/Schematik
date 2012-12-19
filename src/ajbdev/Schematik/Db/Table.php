@@ -4,7 +4,7 @@
  * Date: 12/18/12
  */
 
-namespace Schematik;
+namespace Schematik\Db;
 
 use Schematik\Column;
 

@@ -7,7 +7,8 @@
 namespace Schematik;
 
 use Schematik\Db\Parser;
-use Schematik\Db\Column\NullNotAllowedException;
+use Schematik\Attribute\ChainExecutor;
+
 
 class Db {
     protected $db;
@@ -26,33 +27,13 @@ class Db {
     public function insert($tableName,$data)
     {
         $table = $this->parser->getTable($tableName);
-        foreach ($data as $key => &$value) {
-            $column = $table->findColumn($key);
-            if (!$column) {
-                throw new Exception('Unknown column: ' . $key);
-            }
-            if ($column->hasAttributes()) {
-                foreach ($column->getAttributes() as $attr) {
-                    $value = $attr->preInsert($value);
-                }
-            }
-        }
+
+        $chainExecutor = new ChainExecutor($table,$data);
+        $data = $chainExecutor->execute();
+
+
         echo $this->_buildInsertQuery($tableName,$data);
 
-        // Check for null values on un-nullable columns
-        $columns = $table->getColumns();
-        foreach ($columns as $column) {
-            if (!$column->getAllowNull()) {
-                if ( empty( $data[$column->getName()] ) ) {
-                    $defaultValue = $column->getDefaultValue();
-                    if ( $defaultValue === null ) {
-                        $data[$column->getName()] = $column->getDefaultValue();
-                    }
-                    throw new NullNotAllowedException('Column `' . $column->getName() .'` is not nullable');
-
-                }
-            }
-        }
     }
 
     protected function _buildInsertQuery($tableName,$data)

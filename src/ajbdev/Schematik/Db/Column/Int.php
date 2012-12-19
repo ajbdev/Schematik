@@ -17,6 +17,9 @@ class Int extends ColumnAbstract {
     }
 
     public function validate($value) {
+        if (!is_int($value)) {
+            throw new InvalidTypeException($value . ' is not an integer');
+        }
         if (strlen($value) > $this->length) {
             throw new MaxLengthException('Max length beyond ' . $this->length . ' characters in length');
         }

@@ -5,7 +5,7 @@
  */
 namespace Schematik\Db;
 
-use Schematik\Table;
+use Schematik\Db\Table;
 use Schematik\Db\Column\Int;
 use Schematik\Db\Column\Varchar;
 use Schematik\Db\Column\Enum;
