@@ -1,12 +1,25 @@
-Schematik: database defined data governance (for MySQL)
+# Schematik
+Database defined data governance (for MySQL)
 
-What's that mean?
-Define the characteristics of your data once: in the database. By sniffing out the metadata of your database (and using the COMMENTS field as a proxy for annotations), Schematix takes your database constraints and hints and turns them into data validators and filters.
+### What's that mean?
+Define the characteristics of your data once: in the database. By sniffing out the metadata of your database (and using the COMMENTS field for annotations), Schematix takes your database constraints and hints and turns them into data validators and filters.
 
-How's it work?
-Take a look at the basic Silex+Schematik skeleton or gander at the following code:
+### How it works
+Schematik works by parsing the schema of your database and using the definitions defined in your database to control the logic of the database abstraction layer.
+
+Silex+Schematik skeleton app example forthcoming. 
+
+#### Features
+ - Validates max length of column
+ - Validates type of data going into a column
+ - Support for email validation, password hashing
+
+#### Upcoming features
+ - Database level ACL's for different user types (Concept: create a different DB username for each user type and lock down SELECT/UPDATE/INSERT privileges on the database level to affect what will be queried for from the app)
+
 
 Why?
+----
 With PHP annotations being so popular these days, I wanted to experiment with assigning the data governance directly in the database. In theory, one could do this more efficiently using database triggers, but
 
 What are the potential shortcomings?
